@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Postulación Facilitadores — Method IDC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --pink: #d946a8;
+    --pink-dark: #b8348e;
+    --pink-light: #fce9f7;
+    --lime: #c3e25c;
+    --lime-dark: #a8c93d;
+    --lime-light: #f4fadc;
+    --lime-text: #2d4a00;
+    --black: #0e0e0e;
+    --cream: #f7f6f2;
+    --white: #ffffff;
+    --gray-100: #f0efe9;
+    --gray-200: #e2e0d8;
+    --gray-400: #9e9c93;
+    --gray-600: #6b6960;
+    --gray-800: #2e2d29;
+    --radius: 10px;
+    --radius-lg: 16px;
+    --radius-pill: 999px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Urbanist', sans-serif;
+    background: var(--cream);
+    color: var(--black);
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    padding: 1.25rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo-wrap { display: flex; align-items: center; gap: 12px; }
+  .logo-box {
+    display: flex; align-items: center;
+    height: 44px;
+  }
+  .logo-box svg { height: 44px; width: auto; }
+  .logo-text strong { display: block; font-weight: 700; font-size: 14px; color: var(--black); letter-spacing: -0.2px; }
+  .logo-text span { font-size: 11px; color: var(--gray-400); font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .header-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--pink);
+    border: 1px solid rgba(217,70,168,0.3);
+    padding: 5px 12px;
+    border-radius: var(--radius-pill);
+    background: var(--pink-light);
+  }
+
+  .hero {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    padding: 5rem 2.5rem 4.5rem;
+    text-align: center;
+  }
+  .hero-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--gray-400);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-size: clamp(44px, 9vw, 80px);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -3px;
+    color: var(--black);
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 .hl { color: var(--pink); font-weight: 300; }
+  .hero-sub {
+    font-size: 16px;
+    color: var(--gray-600);
+    line-height: 1.7;
+    max-width: 440px;
+    margin: 0 auto 2.5rem;
+  }
+  .hero-desc {
+    max-width: 480px;
+    margin: 2rem auto 0;
+    font-size: 14px;
+    color: var(--gray-600);
+    line-height: 1.75;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--gray-200);
+  }
+  .hero-desc span { color: var(--black); font-weight: 600; }
+  .hero-tag {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    background: var(--gray-100);
+    color: var(--gray-600);
+    border: 1px solid var(--gray-200);
+    font-family: 'IBM Plex Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .hero-tag.pink { background: var(--pink-light); color: var(--pink); border-color: rgba(217,70,168,0.2); }
+  .hero-tag.lime { background: var(--lime-light); color: var(--lime-text); border-color: rgba(163,193,61,0.3); }
+
+  .progress-wrap {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    padding: 1rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .prog-steps { display: flex; align-items: center; }
+  .prog-step { display: flex; align-items: center; gap: 8px; }
+  .prog-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    border: 1.5px solid var(--gray-200);
+    color: var(--gray-400);
+    background: var(--white);
+    transition: all 0.3s;
+  }
+  .prog-num.active { border-color: var(--pink); color: var(--pink); background: var(--pink-light); }
+  .prog-num.done { border-color: var(--lime-dark); color: var(--lime-text); background: var(--lime); }
+  .prog-label { font-size: 12px; color: var(--gray-400); font-weight: 500; transition: color 0.3s; white-space: nowrap; }
+  .prog-label.active { color: var(--black); }
+  .prog-line { width: 40px; height: 1px; background: var(--gray-200); margin: 0 8px; transition: background 0.3s; }
+  .prog-line.done { background: var(--lime-dark); }
+
+  @media (max-width: 600px) {
+    .prog-label { display: none; }
+    .prog-line { width: 20px; }
+    .progress-wrap { padding: 1rem 1.5rem; }
+    header { padding: 1.25rem 1.5rem; }
+    .hero { padding: 3rem 1.5rem; }
+  }
+
+  .main { max-width: 700px; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
+
+  .form-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    overflow: hidden;
+  }
+  @media (max-width: 640px) {
+    .form-card { padding: 1.75rem 1.5rem; }
+    .field-row { grid-template-columns: 1fr !important; }
+  }
+
+  .card-accent {
+    height: 4px;
+    background: var(--lime);
+    margin: -2.5rem -2.5rem 2.25rem;
+  }
+  @media (max-width: 640px) { .card-accent { margin: -1.75rem -1.5rem 2rem; } }
+
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--pink);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--gray-200); }
+
+  .field { margin-bottom: 1.25rem; }
+  .field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gray-800);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 7px;
+  }
+  .field input, .field textarea, .field select {
+    width: 100%;
+    padding: 11px 15px;
+    font-size: 15px;
+    font-family: 'Urbanist', sans-serif;
+    background: var(--cream);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    color: var(--black);
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    outline: none;
+    -webkit-appearance: none;
+  }
+  .field input::placeholder, .field textarea::placeholder { color: var(--gray-400); }
+  .field input:focus, .field textarea:focus, .field select:focus {
+    border-color: var(--pink);
+    background: var(--white);
+    box-shadow: 0 0 0 3px rgba(217,70,168,0.08);
+  }
+  .field select { cursor: pointer; }
+  .field textarea { resize: vertical; min-height: 100px; line-height: 1.65; }
+  .field-hint { font-size: 12px; color: var(--gray-400); margin-top: 6px; line-height: 1.5; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .chips-intro { font-size: 14px; color: var(--gray-600); margin-bottom: 1rem; line-height: 1.6; }
+  .chips-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    padding: 7px 16px;
+    border-radius: var(--radius-pill);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--gray-200);
+    background: var(--cream);
+    color: var(--gray-600);
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .chip:hover { border-color: var(--pink); color: var(--pink); background: var(--pink-light); }
+  .chip.sel-pink { background: var(--pink); border-color: var(--pink); color: white; }
+  .chip.sel-green { background: var(--lime); border-color: var(--lime-dark); color: var(--lime-text); }
+
+  .divider { height: 1px; background: var(--gray-200); margin: 2.5rem 0; }
+
+  .skill-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .skill-row:last-child { border-bottom: none; }
+  .skill-name { font-size: 14px; color: var(--black); font-weight: 500; }
+  .stars { display: flex; gap: 5px; }
+  .star {
+    width: 24px; height: 24px;
+    cursor: pointer;
+    color: var(--gray-200);
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    transition: color 0.1s, transform 0.1s;
+    user-select: none;
+  }
+  .star:hover { transform: scale(1.15); }
+  .star.lit { color: var(--pink); }
+
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 2rem; padding-top: 2rem;
+    border-top: 1px solid var(--gray-200);
+  }
+  .btn {
+    padding: 12px 28px;
+    border-radius: var(--radius);
+    font-family: 'Urbanist', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    border: 1px solid var(--gray-200);
+    background: var(--white);
+    color: var(--gray-600);
+  }
+  .btn:hover { border-color: var(--gray-400); color: var(--black); background: var(--gray-100); }
+  .btn-primary { background: var(--pink); border-color: var(--pink); color: white; }
+  .btn-primary:hover { background: var(--pink-dark); border-color: var(--pink-dark); }
+  .btn-primary:disabled { background: var(--gray-200); border-color: var(--gray-200); color: var(--gray-400); cursor: not-allowed; }
+
+  .step-count {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--gray-400);
+    letter-spacing: 0.5px;
+  }
+
+  .error-msg {
+    font-size: 13px; color: #c0392b;
+    margin-top: 1rem; text-align: center;
+    padding: 10px 16px;
+    background: #fdf0ee;
+    border-radius: var(--radius);
+    border: 1px solid rgba(192,57,43,0.15);
+  }
+
+  .success-wrap { text-align: center; padding: 2rem 0; }
+  .success-icon {
+    width: 72px; height: 72px;
+    background: var(--lime);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 32px; color: var(--lime-text); font-weight: 700;
+  }
+  .success-wrap h2 { font-size: 28px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px; }
+  .success-wrap h2 span { color: var(--pink); font-weight: 300; }
+  .success-wrap p { font-size: 14px; color: var(--gray-600); max-width: 380px; margin: 0 auto 2rem; line-height: 1.7; }
+  .summary-card {
+    background: var(--cream); border: 1px solid var(--gray-200);
+    border-radius: var(--radius); padding: 1.25rem 1.5rem;
+    max-width: 360px; margin: 0 auto; text-align: left;
+  }
+  .summary-card .lbl { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-400); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; }
+  .summary-card .s-name { font-size: 16px; font-weight: 700; }
+  .summary-card .s-email { font-size: 13px; color: var(--gray-600); margin-top: 3px; }
+  .summary-card .s-areas { font-size: 13px; color: var(--pink); margin-top: 10px; line-height: 1.6; font-weight: 500; }
+
+  footer {
+    text-align: center; padding: 2.5rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: var(--gray-400); letter-spacing: 0.5px;
+    border-top: 1px solid var(--gray-200);
+    background: var(--white);
+  }
+
+  .hidden { display: none !important; }
+  .page { animation: fadeUp 0.25s ease both; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-wrap">
+    <div class="logo-box">
+      <svg viewBox="0 0 130 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M127.969 15.1462V136.82C127.969 137.812 127.169 138.612 126.178 138.612H76.3052C75.314 138.612 74.514 137.812 74.514 136.82V106.806C74.514 105.815 73.7141 105.015 72.723 105.015H55.0031C54.0119 105.015 53.2119 105.815 53.2119 106.806V136.82C53.2119 137.812 52.412 138.612 51.4208 138.612H1.96512C0.973918 138.612 0.17395 137.812 0.17395 136.82V15.1462C0.17395 13.5464 2.1042 12.7464 3.23452 13.8768L62.8109 73.4532C63.5065 74.1487 64.6369 74.1487 65.3498 73.4532L124.926 13.8768C126.056 12.7464 127.987 13.5464 127.987 15.1462H127.969Z" fill="#020202"/>
+      </svg>
+    </div>
+  </div>
+  <div class="header-tag">{facilitadores}</div>
+</header>
+
+<section class="hero">
+  <div class="hero-eyebrow">Instituto de Diseño de Caracas</div>
+  <h1>Postúlate<br><span class="hl">{</span>como<br>facilitador<span class="hl">}</span></h1>
+  <p class="hero-sub">Compártenos tu perfil y te conectamos con las formaciones que mejor se adapten a ti.</p>
+  <div class="hero-tags">
+    <span class="hero-tag">Creatividad</span>
+    <span class="hero-tag pink">Transformación</span>
+    <span class="hero-tag lime">Aprendizaje</span>
+    <span class="hero-tag">Comunidad</span>
+    <span class="hero-tag pink">Desafío</span>
+  </div>
+  <div class="hero-desc">
+    Method es el programa de extensiones académicas del Instituto de Diseño de Caracas. Ayudamos a todo tipo de creativos a avanzar en sus profesiones a través de un enfoque <span>pragmático, desafiante y orientado a resultados</span> — haciendo de la transformación el núcleo de todo proceso.
+  </div>
+</section>
+
+<div class="progress-wrap">
+  <div class="prog-steps">
+    <div class="prog-step">
+      <div class="prog-num active" id="pn1">01</div>
+      <span class="prog-label active" id="pl1">Datos</span>
+    </div>
+    <div class="prog-line" id="pl12"></div>
+    <div class="prog-step">
+      <div class="prog-num" id="pn2">02</div>
+      <span class="prog-label" id="pl2">Áreas</span>
+    </div>
+    <div class="prog-line" id="pl23"></div>
+    <div class="prog-step">
+      <div class="prog-num" id="pn3">03</div>
+      <span class="prog-label" id="pl3">Habilidades</span>
+    </div>
+    <div class="prog-line" id="pl34"></div>
+    <div class="prog-step">
+      <div class="prog-num" id="pn4">04</div>
+      <span class="prog-label" id="pl4">Experiencia</span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="form-card">
+
+    <div id="page1" class="page">
+      <div class="card-accent"></div>
+      <div class="section-label">01 — Datos personales</div>
+      <div class="field-row">
+        <div class="field"><label>Nombre *</label><input type="text" id="fname" placeholder="Andrea" /></div>
+        <div class="field"><label>Apellido *</label><input type="text" id="lname" placeholder="González" /></div>
+      </div>
+      <div class="field"><label>Correo electrónico *</label><input type="email" id="email" placeholder="correo@dominio.com" /></div>
+      <div class="field"><label>Teléfono / WhatsApp</label><input type="tel" id="phone" placeholder="+58 412 000 0000" /></div>
+      <div class="field">
+        <label>Biografía corta *</label>
+        <textarea id="bio" placeholder="Cuéntanos en 2-3 líneas quién eres, tu trayectoria y qué te mueve como creativo..."></textarea>
+        <div class="field-hint">Esta bio puede aparecer en los materiales del programa.</div>
+      </div>
+      <div class="field">
+        <label>Portafolio / Perfil online</label>
+        <input type="url" id="portfolio" placeholder="https://behance.net/tuperfil" />
+        <div class="field-hint">Behance, LinkedIn, sitio web — cualquier link válido.</div>
+      </div>
+      <div class="field">
+        <label>CV — link a PDF <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--gray-400)">(Drive, Dropbox, etc.)</span></label>
+        <input type="url" id="cvlink" placeholder="https://drive.google.com/file/tu-cv" />
+      </div>
+    </div>
+
+    <div id="page2" class="page hidden">
+      <div class="card-accent"></div>
+      <div class="section-label">02 — Áreas de formación</div>
+      <p class="chips-intro">¿En qué áreas te interesa facilitar? Selecciona todas las que apliquen.</p>
+      <div class="chips-wrap" id="areas">
+        <div class="chip" onclick="tog(this,'pink')">Diseño Gráfico</div>
+        <div class="chip" onclick="tog(this,'pink')">Diseño Industrial</div>
+        <div class="chip" onclick="tog(this,'pink')">Interiorismo</div>
+        <div class="chip" onclick="tog(this,'pink')">Ilustración</div>
+        <div class="chip" onclick="tog(this,'pink')">Diseño de Moda</div>
+        <div class="chip" onclick="tog(this,'pink')">UI/UX</div>
+        <div class="chip" onclick="tog(this,'pink')">Motion Graphics</div>
+        <div class="chip" onclick="tog(this,'pink')">Fotografía</div>
+        <div class="chip" onclick="tog(this,'pink')">Branding</div>
+        <div class="chip" onclick="tog(this,'pink')">Sostenibilidad</div>
+        <div class="chip" onclick="tog(this,'pink')">Emprendimiento Creativo</div>
+        <div class="chip" onclick="tog(this,'pink')">Storytelling</div>
+        <div class="chip" onclick="tog(this,'pink')">IA aplicada al diseño</div>
+        <div class="chip" onclick="tog(this,'pink')">Otra</div>
+      </div>
+      <div class="divider"></div>
+      <div class="section-label">Intereses y hobbies</div>
+      <p class="chips-intro">¿Qué te mueve fuera del trabajo? Nos ayuda a entender tu perfil completo.</p>
+      <div class="chips-wrap" id="hobbies">
+        <div class="chip" onclick="tog(this,'green')">Música</div>
+        <div class="chip" onclick="tog(this,'green')">Cine</div>
+        <div class="chip" onclick="tog(this,'green')">Literatura</div>
+        <div class="chip" onclick="tog(this,'green')">Viajes</div>
+        <div class="chip" onclick="tog(this,'green')">Deportes</div>
+        <div class="chip" onclick="tog(this,'green')">Gastronomía</div>
+        <div class="chip" onclick="tog(this,'green')">Arte urbano</div>
+        <div class="chip" onclick="tog(this,'green')">Tecnología</div>
+        <div class="chip" onclick="tog(this,'green')">Naturaleza</div>
+        <div class="chip" onclick="tog(this,'green')">Emprendimiento</div>
+        <div class="chip" onclick="tog(this,'green')">Moda</div>
+        <div class="chip" onclick="tog(this,'green')">Arquitectura</div>
+      </div>
+    </div>
+
+    <div id="page3" class="page hidden">
+      <div class="card-accent"></div>
+      <div class="section-label">03 — Habilidades blandas</div>
+      <p class="chips-intro" style="margin-bottom:1.5rem;">Evalúa tu nivel — 1 en desarrollo · 5 muy fuerte.</p>
+      <div id="skillsWrap"></div>
+    </div>
+
+    <div id="page4" class="page hidden">
+      <div class="card-accent"></div>
+      <div class="section-label">04 — Experiencia docente</div>
+      <div class="field">
+        <label>¿Has facilitado talleres o clases antes?</label>
+        <select id="exp">
+          <option value="">Selecciona una opción</option>
+          <option>Sí, en instituciones educativas</option>
+          <option>Sí, talleres independientes / workshops</option>
+          <option>Sí, en empresas (capacitación corporativa)</option>
+          <option>No, pero tengo experiencia en mentoring informal</option>
+          <option>No, es mi primera vez</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Describe tu experiencia enseñando</label>
+        <textarea id="expDesc" placeholder="Qué has enseñado, a quiénes, y cuál fue el impacto..."></textarea>
+      </div>
+      <div class="field">
+        <label>Disponibilidad semanal</label>
+        <select id="avail">
+          <option value="">Selecciona una opción</option>
+          <option>Menos de 5 horas</option>
+          <option>5–10 horas</option>
+          <option>10–20 horas</option>
+          <option>Más de 20 horas</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>¿Algo más que quieras que sepamos?</label>
+        <textarea id="extra" placeholder="Proyectos en los que estás, por qué quieres ser parte de Method..."></textarea>
+      </div>
+      <div id="errorMsg" class="error-msg hidden"></div>
+    </div>
+
+    <div id="pageSuccess" class="page hidden">
+      <div class="success-wrap">
+        <div class="success-icon">✓</div>
+        <h2>¡Listo, <span>{gracias}!</span></h2>
+        <p>Tu perfil quedó registrado. El equipo de Method lo revisará y te contactará cuando haya una formación que haga match contigo.</p>
+        <div class="summary-card">
+          <div class="lbl">Resumen de postulación</div>
+          <div class="s-name" id="sumName"></div>
+          <div class="s-email" id="sumEmail"></div>
+          <div class="s-areas" id="sumAreas"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav" id="navBar">
+      <button class="btn" id="btnBack" onclick="goBack()" style="visibility:hidden">← Atrás</button>
+      <span class="step-count" id="stepCount">PASO 01 / 04</span>
+      <button class="btn btn-primary" id="btnNext" onclick="goNext()">Continuar →</button>
+    </div>
+  </div>
+</div>
+
+<footer>@METHOD.IDC — Instituto de Diseño de Caracas — Programa de Extensiones Académicas</footer>
+
+<script>
+  const AT_TOKEN = 'patrXiNkNgy30Kq7s.6e9f3be8c9ff0af72a84724123418ed8cf81b2236560013be040051c13c0b013';
+  const AT_BASE  = 'appcRgnyz712iwQ3P';
+  const AT_TABLE = 'tblcM6rpUYnIlm864';
+
+  let page = 1;
+  const skillNames = ['Comunicación','Empatía','Liderazgo','Adaptabilidad','Pensamiento crítico','Trabajo en equipo','Creatividad','Gestión del tiempo'];
+  const ratings = {};
+
+  function buildSkills() {
+    const w = document.getElementById('skillsWrap');
+    skillNames.forEach((sk, i) => {
+      ratings[i] = 0;
+      const row = document.createElement('div');
+      row.className = 'skill-row';
+      row.innerHTML = `<span class="skill-name">${sk}</span>
+        <div class="stars" id="str_${i}">
+          ${[1,2,3,4,5].map(n => `<span class="star" onclick="rate(${i},${n})">●</span>`).join('')}
+        </div>`;
+      w.appendChild(row);
+    });
+  }
+
+  function rate(sk, val) {
+    ratings[sk] = val;
+    document.querySelectorAll(`#str_${sk} .star`).forEach((s, i) => s.classList.toggle('lit', i < val));
+  }
+
+  function tog(el, color) {
+    el.classList.toggle(color === 'pink' ? 'sel-pink' : 'sel-green');
+  }
+
+  function getChipsArray(id) {
+    return [...document.querySelectorAll(`#${id} .chip.sel-pink, #${id} .chip.sel-green`)].map(c => c.textContent.trim());
+  }
+
+  function getChips(id) {
+    return getChipsArray(id).join(', ');
+  }
+
+  function getSkillsSummary() {
+    return skillNames.map((sk, i) => `${sk}: ${ratings[i] || 0}/5`).join(' | ');
+  }
+
+  function updateUI() {
+    for (let i = 1; i <= 4; i++) {
+      const num = document.getElementById('pn' + i);
+      const lbl = document.getElementById('pl' + i);
+      if (i < page)        { num.className = 'prog-num done';   lbl.className = 'prog-label'; }
+      else if (i === page) { num.className = 'prog-num active'; lbl.className = 'prog-label active'; }
+      else                 { num.className = 'prog-num';        lbl.className = 'prog-label'; }
+    }
+    ['pl12','pl23','pl34'].forEach((id, idx) => {
+      const el = document.getElementById(id);
+      if (el) el.className = 'prog-line' + (page > idx + 1 ? ' done' : '');
+    });
+    document.getElementById('btnBack').style.visibility = page > 1 ? 'visible' : 'hidden';
+    document.getElementById('stepCount').textContent = `PASO 0${page} / 04`;
+    document.getElementById('btnNext').textContent = page === 4 ? 'Enviar postulación ✓' : 'Continuar →';
+  }
+
+  function show(n) {
+    for (let i = 1; i <= 4; i++) {
+      const p = document.getElementById('page' + i);
+      if (p) p.classList.toggle('hidden', i !== n);
+    }
+    updateUI();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function validate() {
+    if (page === 1) {
+      if (!document.getElementById('fname').value.trim()) return 'Por favor ingresa tu nombre.';
+      if (!document.getElementById('lname').value.trim()) return 'Por favor ingresa tu apellido.';
+      const email = document.getElementById('email').value.trim();
+      if (!email || !email.includes('@')) return 'Ingresa un correo electrónico válido.';
+      if (!document.getElementById('bio').value.trim()) return 'La biografía es requerida.';
+    }
+    return null;
+  }
+
+  function showErr(msg) {
+    const el = document.getElementById('errorMsg');
+    if (el) { el.textContent = msg; el.classList.remove('hidden'); setTimeout(() => el.classList.add('hidden'), 5000); }
+  }
+
+  function goNext() {
+    const err = validate();
+    if (err) { showErr(err); return; }
+    if (page < 4) { page++; show(page); } else { submit(); }
+  }
+
+  function goBack() {
+    if (page > 1) { page--; show(page); }
+  }
+
+  async function submit() {
+    const btn = document.getElementById('btnNext');
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+
+    const nombre = `${document.getElementById('fname').value.trim()} ${document.getElementById('lname').value.trim()}`;
+    const email  = document.getElementById('email').value.trim();
+    const areas  = getChips('areas');
+
+    const fields = {
+      'Nombre':                  document.getElementById('fname').value.trim(),
+      'Apellido':                document.getElementById('lname').value.trim(),
+      'Email':                   email,
+      'Telefono':                document.getElementById('phone').value.trim(),
+      'Biografia':               document.getElementById('bio').value.trim(),
+      'Portafolio':              document.getElementById('portfolio').value.trim(),
+      'CV':                      document.getElementById('cvlink').value.trim(),
+      'Areas de formacion':      getChipsArray('areas'),
+      'Hobbies':                 getChipsArray('hobbies'),
+      'Habilidades Blandas':     getSkillsSummary(),
+      'Experiencia docente':     document.getElementById('exp').value,
+      'Descripcion experiencia': document.getElementById('expDesc').value.trim(),
+      'Disponibilidad':          document.getElementById('avail').value,
+      'Notas':                   document.getElementById('extra').value.trim(),
+      'Fecha':                   new Date().toISOString().split('T')[0]
+    };
+
+    // Remove empty fields to avoid Airtable rejecting unknown ones
+    Object.keys(fields).forEach(k => { if (!fields[k]) delete fields[k]; });
+
+    try {
+      const res = await fetch(`https://api.airtable.com/v0/${AT_BASE}/${AT_TABLE}`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${AT_TOKEN}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fields })
+      });
+      const data = await res.json();
+      if (data.id) {
+        document.getElementById('sumName').textContent = nombre;
+        document.getElementById('sumEmail').textContent = email;
+        document.getElementById('sumAreas').textContent = areas || 'Sin áreas seleccionadas';
+        for (let i = 1; i <= 4; i++) document.getElementById('page' + i).classList.add('hidden');
+        document.getElementById('pageSuccess').classList.remove('hidden');
+        document.getElementById('navBar').classList.add('hidden');
+        document.querySelector('.progress-wrap').style.opacity = '0.4';
+      } else {
+        const errMsg = data.error ? `${data.error.type}: ${data.error.message}` : JSON.stringify(data);
+        throw new Error(errMsg);
+      }
+    } catch (e) {
+      btn.disabled = false;
+      btn.textContent = 'Enviar postulación ✓';
+      showErr(`Error al enviar: ${e.message}`);
+    }
+  }
+
+  buildSkills();
+  show(1);
+</script>
+</body>
+</html>
